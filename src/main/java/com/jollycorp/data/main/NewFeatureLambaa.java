@@ -9,13 +9,10 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-// 主方法类
-public class NewFeature {
-    public static void main(String[]args) {
-        /*****************default*********************/
-        /*FeatureService service = new FeatureServiceImpl();
-        System.out.println(service.sqrt(4));*/
+import static java.util.stream.Collectors.*;
 
+public class NewFeatureLambaa {
+    public static void main(String[]args) {
         /*****************lambda*********************/
         // 1.8之前
         /*List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
@@ -112,12 +109,12 @@ public class NewFeature {
         javaProgrammers.forEach(giveRaise);
         phpProgrammers.forEach(giveRaise);*/
 
-       /* System.out.println("下面是月薪超过 $1,400 的PHP程序员:");
+        /* System.out.println("下面是月薪超过 $1,400 的PHP程序员:");
         phpProgrammers.stream()
                 .filter((p) -> (p.getSalary() > 1400))
                 .forEach((p) -> System.out.printf("%s %s; ", p.getFirstName(), p.getLastName()));*/
 
-       // 定义 filters
+        /*// 定义 filters
         Predicate<Person> ageFilter = (p) -> (p.getAge() > 25);
         Predicate<Person> salaryFilter = (p) -> (p.getSalary() > 1400);
         Predicate<Person> genderFilter = (p) -> ("female".equals(p.getGender()));
@@ -135,7 +132,55 @@ public class NewFeature {
         javaProgrammers.stream()
                 .filter(ageFilter)
                 .filter(genderFilter)
-                .forEach((p) -> System.out.printf("%s %s; ", p.getFirstName(), p.getLastName()));
+                .forEach((p) -> System.out.printf("%s %s; ", p.getFirstName(), p.getLastName()));*/
 
+        /*System.out.println("根据 name 排序,并显示前5个 Java programmers:");
+        List<Person> sortedJavaProgrammers = javaProgrammers
+                .stream()
+                .sorted((p, p2) -> (p.getFirstName().compareTo(p2.getFirstName())))
+                .limit(5)
+                .collect(toList());
+
+        sortedJavaProgrammers.forEach((p) -> System.out.printf("%s %s; %n", p.getFirstName(), p.getLastName()));
+
+        System.out.println("根据 salary 排序 Java programmers:");
+        sortedJavaProgrammers = javaProgrammers
+                .stream()
+                .sorted( (p, p2) -> (p.getSalary() - p2.getSalary()) )
+                .collect( toList() );
+
+        sortedJavaProgrammers.forEach((p) -> System.out.printf("%s %s; %n", p.getFirstName(), p.getLastName()));*/
+
+        /*System.out.println("将 PHP programmers 的 first name 拼接成字符串:");
+        String phpDevelopers = phpProgrammers
+                .stream()
+                .map(Person::getFirstName)
+                .collect(joining(" ; ")); // 在进一步的操作中可以作为标记(token)
+        System.out.println(phpDevelopers);
+
+        System.out.println("将 Java programmers 的 first name 存放到 Set:");
+        Set<String> javaDevFirstName = javaProgrammers
+                .stream()
+                .map(Person::getFirstName)
+                .collect(toSet());
+        System.out.println(javaDevFirstName);
+
+        System.out.println("将 Java programmers 的 first name 存放到 TreeSet:");
+        TreeSet<String> javaDevLastName = javaProgrammers
+                .stream()
+                .map(Person::getLastName)
+                .collect(toCollection(TreeSet::new));*/
+
+        //计算 count, min, max, sum, and average for numbers
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        IntSummaryStatistics stats = numbers
+                .stream()
+                .mapToInt((x) -> x)
+                .summaryStatistics();
+
+        System.out.println("List中最大的数字 : " + stats.getMax());
+        System.out.println("List中最小的数字 : " + stats.getMin());
+        System.out.println("所有数字的总和   : " + stats.getSum());
+        System.out.println("所有数字的平均值 : " + stats.getAverage());
     }
 }
